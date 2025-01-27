@@ -3,11 +3,12 @@ package com.mirkwood.logistics.features.personaldetails.service;
 import com.mirkwood.logistics.features.personaldetails.dto.MirkwoodStaffPersonalDetailsDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MirkwoodStaffPersonalDetailsService {
 
     //find operation
-    MirkwoodStaffPersonalDetailsDTO getStaffDetailsById(Long id);
+    Optional<MirkwoodStaffPersonalDetailsDTO> getStaffDetailsByEmployeeId(String employeeId);
     List<MirkwoodStaffPersonalDetailsDTO> getAllStaffDetails();
     List<MirkwoodStaffPersonalDetailsDTO> searchByFirstName(String firstName);
     List<MirkwoodStaffPersonalDetailsDTO> searchBySecondName(String firstName);
@@ -25,7 +26,7 @@ public interface MirkwoodStaffPersonalDetailsService {
     MirkwoodStaffPersonalDetailsDTO updateStaffByEmployeeId(String employeeId);
 
     //delete operation
-    void  deleteStaffById(Long id);
+    void deleteStaffById(Long id);
     void deleteStaffByEmail(String email);
     void deleteStaffByPhoneNumber(String phoneNumber);
     void deleteStaffByEmployeeId(String employeeId);

@@ -32,8 +32,8 @@ public class MirkwoodStaffPersonalDetailsDTO {
     @JsonProperty("nationality")
     private String nationality;
 
-    @JsonProperty("email")
-    private String email;
+    @JsonProperty("email_id")
+    private String emailId;
 
     @JsonProperty("phone_number")
     private String phoneNumber;
@@ -55,4 +55,7 @@ public class MirkwoodStaffPersonalDetailsDTO {
 
     @JsonProperty("department")
     private String department;
+
+    @JsonProperty("is_Deleted")
+    private Boolean isDeleted;
 }
