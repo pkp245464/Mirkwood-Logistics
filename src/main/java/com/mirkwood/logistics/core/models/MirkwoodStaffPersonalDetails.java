@@ -58,4 +58,7 @@ public class MirkwoodStaffPersonalDetails {
 
     @Column(name = "department")
     private String department;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = false;
 }
