@@ -215,21 +215,34 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
 
     @Override
     public void deleteStaffById(Long id) {
-
+        MirkwoodStaffPersonalDetails mirkwoodStaffPersonalDetails = mirkwoodStaffPersonalDetailsRepository.findById(id)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff with ID " + id + " not found."));
+        mirkwoodStaffPersonalDetails.setIsDeleted(true);
+        mirkwoodStaffPersonalDetailsRepository.save(mirkwoodStaffPersonalDetails);
     }
 
     @Override
     public void deleteStaffByEmail(String email) {
-
+        MirkwoodStaffPersonalDetails mirkwoodStaffPersonalDetails = mirkwoodStaffPersonalDetailsRepository.findByEmailIdAndIsDeletedFalse(email)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff with email " + email + " not found."));
+        mirkwoodStaffPersonalDetails.setIsDeleted(true);
+        mirkwoodStaffPersonalDetailsRepository.save(mirkwoodStaffPersonalDetails);
     }
 
     @Override
     public void deleteStaffByPhoneNumber(String phoneNumber) {
-
+        MirkwoodStaffPersonalDetails mirkwoodStaffPersonalDetails = mirkwoodStaffPersonalDetailsRepository.findByPhoneNumberAndIsDeletedFalse(phoneNumber)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff with phone number " + phoneNumber + " not found."));
+        mirkwoodStaffPersonalDetails.setIsDeleted(true);
+        mirkwoodStaffPersonalDetailsRepository.save(mirkwoodStaffPersonalDetails);
     }
 
     @Override
     public void deleteStaffByEmployeeId(String employeeId) {
-
+        MirkwoodStaffPersonalDetails mirkwoodStaffPersonalDetails = mirkwoodStaffPersonalDetailsRepository.findByEmployeeIdAndIsDeletedFalse(employeeId)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff with employee ID " + employeeId + " not found."));
+        mirkwoodStaffPersonalDetails.setIsDeleted(true);
+        mirkwoodStaffPersonalDetailsRepository.save(mirkwoodStaffPersonalDetails);
     }
+
 }
