@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface MirkwoodStaffPersonalDetailsRepository extends JpaRepository<MirkwoodStaffPersonalDetails,Long> {
     Optional<MirkwoodStaffPersonalDetails> findByEmployeeIdAndIsDeletedFalse(String employeeId);
+    Optional<MirkwoodStaffPersonalDetails> findByEmailIdAndIsDeletedFalse(String emailId);
+    Optional<MirkwoodStaffPersonalDetails> findByPhoneNumberAndIsDeletedFalse(String phoneNumber);
 }

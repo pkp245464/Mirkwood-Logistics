@@ -20,10 +20,10 @@ public interface MirkwoodStaffPersonalDetailsService {
     MirkwoodStaffPersonalDetailsDTO addStaffDetails(MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO);
 
     //update operation
-    MirkwoodStaffPersonalDetailsDTO  updateStaffById(Long id);
-    MirkwoodStaffPersonalDetailsDTO updateStaffByEmail(String email);
-    MirkwoodStaffPersonalDetailsDTO updateStaffByPhoneNumber(String phoneNumber);
-    MirkwoodStaffPersonalDetailsDTO updateStaffByEmployeeId(String employeeId);
+    MirkwoodStaffPersonalDetailsDTO  updateStaffById(Long id, MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO);
+    MirkwoodStaffPersonalDetailsDTO updateStaffByEmail(String email, MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO);
+    MirkwoodStaffPersonalDetailsDTO updateStaffByPhoneNumber(String phoneNumber, MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO);
+    MirkwoodStaffPersonalDetailsDTO updateStaffByEmployeeId(String employeeId, MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO);
 
     //delete operation
     void deleteStaffById(Long id);
