@@ -1,5 +1,6 @@
 package com.mirkwood.logistics.features.personaldetails.service;
 
+import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
 import com.mirkwood.logistics.core.models.MirkwoodStaffPersonalDetails;
 import com.mirkwood.logistics.features.personaldetails.dto.MirkwoodStaffPersonalDetailsDTO;
 import com.mirkwood.logistics.features.personaldetails.repository.MirkwoodStaffPersonalDetailsRepository;
@@ -23,7 +24,7 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
                 mirkwoodStaffPersonalDetailsRepository.findByEmployeeIdAndIsDeletedFalse(employeeId);
 
         if(optionalMirkwoodStaffPersonalDetails.isEmpty()) {
-            throw new IllegalArgumentException("Staff details not found for employeeId: " + employeeId);
+            throw new CustomMirkwoodLogisticsExceptions("Staff details not found for employeeId: " + employeeId);
         }
 
         MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO =
@@ -70,7 +71,7 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
     public MirkwoodStaffPersonalDetailsDTO addStaffDetails(MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO) {
 
         if(Objects.isNull(mirkwoodStaffPersonalDetailsDTO)) {
-            throw new IllegalArgumentException("Staff details cannot be null.");
+            throw new CustomMirkwoodLogisticsExceptions("Staff details cannot be null.");
         }
 
         String staffEmployeeId = mirkwoodStaffPersonalDetailsDTO.getEmployeeId();
@@ -78,7 +79,7 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
                 mirkwoodStaffPersonalDetailsRepository.findByEmployeeIdAndIsDeletedFalse(staffEmployeeId);
 
         if(optionalMirkwoodStaffPersonalDetails.isPresent()) {
-            throw new IllegalArgumentException("Staff details already exist for employeeId: " + staffEmployeeId);
+            throw new CustomMirkwoodLogisticsExceptions("Staff details already exist for employeeId: " + staffEmployeeId);
         }
         
 

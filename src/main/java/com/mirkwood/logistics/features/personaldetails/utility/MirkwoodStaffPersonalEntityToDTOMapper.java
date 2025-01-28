@@ -1,5 +1,6 @@
 package com.mirkwood.logistics.features.personaldetails.utility;
 
+import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
 import com.mirkwood.logistics.core.models.MirkwoodStaffPersonalDetails;
 import com.mirkwood.logistics.features.personaldetails.dto.MirkwoodStaffPersonalDetailsDTO;
 
@@ -13,7 +14,7 @@ public class MirkwoodStaffPersonalEntityToDTOMapper {
 
     public static MirkwoodStaffPersonalDetailsDTO mapToDto(MirkwoodStaffPersonalDetails mirkwoodStaffPersonalDetails) {
         if(Objects.isNull(mirkwoodStaffPersonalDetails)) {
-            return null;
+            throw new CustomMirkwoodLogisticsExceptions("mirkwoodStaffPersonalDetails can't be null");
         }
 
         MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO = new MirkwoodStaffPersonalDetailsDTO();
