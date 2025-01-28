@@ -1,5 +1,6 @@
 package com.mirkwood.logistics.features.personaldetails.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mirkwood.logistics.core.enums.GenderType;
@@ -24,6 +25,7 @@ public class MirkwoodStaffPersonalDetailsDTO {
     private String lastName;
 
     @JsonProperty("date_of_birth")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dateOfBirth;
 
     @JsonProperty("gender")

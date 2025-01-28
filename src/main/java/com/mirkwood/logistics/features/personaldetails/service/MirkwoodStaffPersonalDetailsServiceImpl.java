@@ -65,17 +65,46 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
         return false;
     }
 
+    //TODO implement using bloom filter
     @Override
     public MirkwoodStaffPersonalDetailsDTO addStaffDetails(MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO) {
+
+        if(Objects.isNull(mirkwoodStaffPersonalDetailsDTO)) {
+            throw new IllegalArgumentException("Staff details cannot be null.");
+        }
+
         String staffEmployeeId = mirkwoodStaffPersonalDetailsDTO.getEmployeeId();
-//        if(mirkwoodStaffPersonalDetailsRepository.findByEmployeeId(staffEmployeeId) {
-//
-//        }
+        Optional<MirkwoodStaffPersonalDetails>optionalMirkwoodStaffPersonalDetails =
+                mirkwoodStaffPersonalDetailsRepository.findByEmployeeIdAndIsDeletedFalse(staffEmployeeId);
+
+        if(optionalMirkwoodStaffPersonalDetails.isPresent()) {
+            throw new IllegalArgumentException("Staff details already exist for employeeId: " + staffEmployeeId);
+        }
+        
 
         String staffEmailId = mirkwoodStaffPersonalDetailsDTO.getEmailId();
         String staffPhoneNumber = mirkwoodStaffPersonalDetailsDTO.getPhoneNumber();
 
-        return null;
+        MirkwoodStaffPersonalDetails mirkwoodStaffPersonalDetails = new MirkwoodStaffPersonalDetails();
+
+        mirkwoodStaffPersonalDetails.setFirstName(mirkwoodStaffPersonalDetailsDTO.getFirstName());
+        mirkwoodStaffPersonalDetails.setLastName(mirkwoodStaffPersonalDetailsDTO.getLastName());
+        mirkwoodStaffPersonalDetails.setDateOfBirth(mirkwoodStaffPersonalDetailsDTO.getDateOfBirth());
+        mirkwoodStaffPersonalDetails.setGender(mirkwoodStaffPersonalDetailsDTO.getGender());
+        mirkwoodStaffPersonalDetails.setNationality(mirkwoodStaffPersonalDetailsDTO.getNationality());
+        mirkwoodStaffPersonalDetails.setEmail(mirkwoodStaffPersonalDetailsDTO.getEmailId());
+        mirkwoodStaffPersonalDetails.setPhoneNumber(mirkwoodStaffPersonalDetailsDTO.getPhoneNumber());
+        mirkwoodStaffPersonalDetails.setCurrentAddress(mirkwoodStaffPersonalDetailsDTO.getCurrentAddress());
+        mirkwoodStaffPersonalDetails.setPermanentAddress(mirkwoodStaffPersonalDetailsDTO.getPermanentAddress());
+        mirkwoodStaffPersonalDetails.setEmployeeId(mirkwoodStaffPersonalDetailsDTO.getEmployeeId());
+        mirkwoodStaffPersonalDetails.setDateOfJoining(mirkwoodStaffPersonalDetailsDTO.getDateOfJoining());
+        mirkwoodStaffPersonalDetails.setDesignation(mirkwoodStaffPersonalDetailsDTO.getDesignation());
+        mirkwoodStaffPersonalDetails.setDepartment(mirkwoodStaffPersonalDetailsDTO.getDepartment());
+        mirkwoodStaffPersonalDetails.setIsDeleted(false);
+
+        MirkwoodStaffPersonalDetails mirkwoodStaffPersonalDetailsSaveEntity = mirkwoodStaffPersonalDetailsRepository.save(mirkwoodStaffPersonalDetails);
+
+        return MirkwoodStaffPersonalEntityToDTOMapper.mapToDto(mirkwoodStaffPersonalDetailsSaveEntity);
     }
 
     @Override
