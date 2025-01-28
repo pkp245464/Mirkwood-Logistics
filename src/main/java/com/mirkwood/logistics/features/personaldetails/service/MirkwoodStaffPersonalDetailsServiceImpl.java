@@ -30,9 +30,6 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
         MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO =
                 MirkwoodStaffPersonalEntityToDTOMapper.mapToDto(optionalMirkwoodStaffPersonalDetails.get());
 
-        if(Objects.isNull(mirkwoodStaffPersonalDetailsDTO)) {
-            throw new IllegalStateException("Mapped DTO is null for employeeId: " + employeeId);
-        }
         return Optional.of(mirkwoodStaffPersonalDetailsDTO);
     }
 
@@ -93,7 +90,7 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
         mirkwoodStaffPersonalDetails.setDateOfBirth(mirkwoodStaffPersonalDetailsDTO.getDateOfBirth());
         mirkwoodStaffPersonalDetails.setGender(mirkwoodStaffPersonalDetailsDTO.getGender());
         mirkwoodStaffPersonalDetails.setNationality(mirkwoodStaffPersonalDetailsDTO.getNationality());
-        mirkwoodStaffPersonalDetails.setEmail(mirkwoodStaffPersonalDetailsDTO.getEmailId());
+        mirkwoodStaffPersonalDetails.setEmailId(mirkwoodStaffPersonalDetailsDTO.getEmailId());
         mirkwoodStaffPersonalDetails.setPhoneNumber(mirkwoodStaffPersonalDetailsDTO.getPhoneNumber());
         mirkwoodStaffPersonalDetails.setCurrentAddress(mirkwoodStaffPersonalDetailsDTO.getCurrentAddress());
         mirkwoodStaffPersonalDetails.setPermanentAddress(mirkwoodStaffPersonalDetailsDTO.getPermanentAddress());

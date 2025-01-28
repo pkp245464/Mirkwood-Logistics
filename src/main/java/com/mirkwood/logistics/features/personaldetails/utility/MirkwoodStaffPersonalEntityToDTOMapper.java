@@ -24,7 +24,7 @@ public class MirkwoodStaffPersonalEntityToDTOMapper {
         mirkwoodStaffPersonalDetailsDTO.setDateOfBirth(mirkwoodStaffPersonalDetails.getDateOfBirth());
         mirkwoodStaffPersonalDetailsDTO.setGender(mirkwoodStaffPersonalDetails.getGender());
         mirkwoodStaffPersonalDetailsDTO.setNationality(mirkwoodStaffPersonalDetails.getNationality());
-        mirkwoodStaffPersonalDetailsDTO.setEmailId(mirkwoodStaffPersonalDetails.getEmail());
+        mirkwoodStaffPersonalDetailsDTO.setEmailId(mirkwoodStaffPersonalDetails.getEmailId());
         mirkwoodStaffPersonalDetailsDTO.setPhoneNumber(mirkwoodStaffPersonalDetails.getPhoneNumber());
         mirkwoodStaffPersonalDetailsDTO.setCurrentAddress(mirkwoodStaffPersonalDetails.getCurrentAddress());
         mirkwoodStaffPersonalDetailsDTO.setPermanentAddress(mirkwoodStaffPersonalDetails.getPermanentAddress());

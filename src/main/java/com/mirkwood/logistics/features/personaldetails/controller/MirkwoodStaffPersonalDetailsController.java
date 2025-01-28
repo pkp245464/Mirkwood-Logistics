@@ -22,4 +22,5 @@ public class MirkwoodStaffPersonalDetailsController {
         MirkwoodStaffPersonalDetailsDTO creatingNewStaff = mirkwoodStaffPersonalDetailsService.addStaffDetails(mirkwoodStaffPersonalDetailsDTO);
         return new ResponseEntity<>(creatingNewStaff, HttpStatus.CREATED);
     }
+
 }

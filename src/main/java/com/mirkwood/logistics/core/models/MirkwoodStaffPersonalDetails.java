@@ -35,8 +35,8 @@ public class MirkwoodStaffPersonalDetails {
     @Column(name = "nationality",nullable = false)
     private String nationality;
 
-    @Column(name = "email", unique = true)
-    private String email;
+    @Column(name = "email_id", unique = true)
+    private String emailId;
 
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
