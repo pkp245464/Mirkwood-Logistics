@@ -32,7 +32,7 @@ public class MirkwoodStaff {
     @Column(name = "staff_office_address",nullable = false)
     private String staffOfficeAddress;
 
-    @Column(name = "staff_email_id")
+    @Column(name = "staff_email_id", unique = true)
     private String staffEmailId;
 
     @Column(name = "staff_phone_number")

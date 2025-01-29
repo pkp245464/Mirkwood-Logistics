@@ -5,7 +5,7 @@ import com.mirkwood.logistics.core.models.MirkwoodStaffPersonalDetails;
 import com.mirkwood.logistics.features.personaldetails.dto.MirkwoodStaffPersonalDetailsDTO;
 import com.mirkwood.logistics.features.personaldetails.repository.MirkwoodStaffPersonalDetailsRepository;
 import com.mirkwood.logistics.features.personaldetails.utility.MirkwoodStaffPersonalEntityToDTOMapper;
-import com.mirkwood.logistics.features.personaldetails.utility.MirkwoodStaffUpdateUtility;
+import com.mirkwood.logistics.features.personaldetails.utility.MirkwoodPersonalStaffUpdateUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -192,7 +192,7 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
         MirkwoodStaffPersonalDetails staff = mirkwoodStaffPersonalDetailsRepository.findById(id)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found for ID: " + id));
 
-        MirkwoodStaffUpdateUtility.updateEntityFromDto(staff, mirkwoodStaffPersonalDetailsDTO);
+        MirkwoodPersonalStaffUpdateUtility.updateEntityFromDto(staff, mirkwoodStaffPersonalDetailsDTO);
 
         MirkwoodStaffPersonalDetails updatedStaff = mirkwoodStaffPersonalDetailsRepository.save(staff);
         return MirkwoodStaffPersonalEntityToDTOMapper.mapToDto(updatedStaff);
@@ -207,7 +207,7 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
         MirkwoodStaffPersonalDetails staff = mirkwoodStaffPersonalDetailsRepository.findByEmailIdAndIsDeletedFalse(email)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found for email: " + email));
 
-        MirkwoodStaffUpdateUtility.updateEntityFromDto(staff, mirkwoodStaffPersonalDetailsDTO);
+        MirkwoodPersonalStaffUpdateUtility.updateEntityFromDto(staff, mirkwoodStaffPersonalDetailsDTO);
 
         MirkwoodStaffPersonalDetails updatedStaff = mirkwoodStaffPersonalDetailsRepository.save(staff);
         return MirkwoodStaffPersonalEntityToDTOMapper.mapToDto(updatedStaff);
@@ -222,7 +222,7 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
         MirkwoodStaffPersonalDetails staff = mirkwoodStaffPersonalDetailsRepository.findByPhoneNumberAndIsDeletedFalse(phoneNumber)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found for phone number: " + phoneNumber));
 
-        MirkwoodStaffUpdateUtility.updateEntityFromDto(staff, mirkwoodStaffPersonalDetailsDTO);
+        MirkwoodPersonalStaffUpdateUtility.updateEntityFromDto(staff, mirkwoodStaffPersonalDetailsDTO);
 
         MirkwoodStaffPersonalDetails updatedStaff = mirkwoodStaffPersonalDetailsRepository.save(staff);
         return MirkwoodStaffPersonalEntityToDTOMapper.mapToDto(updatedStaff);
@@ -237,7 +237,7 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
         MirkwoodStaffPersonalDetails staff = mirkwoodStaffPersonalDetailsRepository.findByEmployeeIdAndIsDeletedFalse(employeeId)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found for employee ID: " + employeeId));
 
-        MirkwoodStaffUpdateUtility.updateEntityFromDto(staff, mirkwoodStaffPersonalDetailsDTO);
+        MirkwoodPersonalStaffUpdateUtility.updateEntityFromDto(staff, mirkwoodStaffPersonalDetailsDTO);
 
         MirkwoodStaffPersonalDetails updatedStaff = mirkwoodStaffPersonalDetailsRepository.save(staff);
         return MirkwoodStaffPersonalEntityToDTOMapper.mapToDto(updatedStaff);

@@ -1,14 +1,13 @@
 package com.mirkwood.logistics.features.personaldetails.utility;
 
-import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
 import com.mirkwood.logistics.core.models.MirkwoodStaffPersonalDetails;
 import com.mirkwood.logistics.features.personaldetails.dto.MirkwoodStaffPersonalDetailsDTO;
 
 import java.util.Objects;
 
-public class MirkwoodStaffUpdateUtility {
+public class MirkwoodPersonalStaffUpdateUtility {
 
-    public MirkwoodStaffUpdateUtility() {
+    public MirkwoodPersonalStaffUpdateUtility() {
     }
 
     public static void updateEntityFromDto(MirkwoodStaffPersonalDetails staff, MirkwoodStaffPersonalDetailsDTO dto) {
