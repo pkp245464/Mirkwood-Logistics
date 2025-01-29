@@ -60,4 +60,20 @@ public class MirkwoodStaffPersonalDetailsDTO {
 
     @JsonProperty("is_Deleted")
     private Boolean isDeleted;
+
+    public MirkwoodStaffPersonalDetailsDTO(String firstName, String lastName, GenderType gender, String emailId, String phoneNumber, String employeeId, String designation, String department, String permanentAddress) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.emailId = emailId;
+        this.phoneNumber = phoneNumber;
+        this.employeeId = employeeId;
+        this.designation = designation;
+        this.department = department;
+        this.permanentAddress = permanentAddress;
+    }
+
+    public MirkwoodStaffPersonalDetailsDTO() {
+
+    }
 }

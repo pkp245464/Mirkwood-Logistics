@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/mirkwood-logistics/staff-personal")
@@ -92,5 +94,33 @@ public class MirkwoodStaffPersonalDetailsController {
         else {
             throw new CustomMirkwoodLogisticsExceptions("Deletion failed! Please provide a valid identifier (Email, Phone Number, or Employee ID).");
         }
+    }
+
+    // all find api
+    @GetMapping("/details/{employeeId}")
+    public ResponseEntity<MirkwoodStaffPersonalDetailsDTO> getStaffDetailsByEmployeeId(@PathVariable String employeeId) {
+        return mirkwoodStaffPersonalDetailsService.getStaffDetailsByEmployeeId(employeeId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<MirkwoodStaffPersonalDetailsDTO>> getAllStaffDetails() {
+        return ResponseEntity.ok(mirkwoodStaffPersonalDetailsService.getAllStaffDetails());
+    }
+
+    @GetMapping("/search/firstName")
+    public ResponseEntity<List<MirkwoodStaffPersonalDetailsDTO>> searchByFirstName(@RequestParam String firstName) {
+        return ResponseEntity.ok(mirkwoodStaffPersonalDetailsService.searchByFirstName(firstName));
+    }
+
+    @GetMapping("/search/lastName")
+    public ResponseEntity<List<MirkwoodStaffPersonalDetailsDTO>> searchByLastName(@RequestParam String lastName) {
+        return ResponseEntity.ok(mirkwoodStaffPersonalDetailsService.searchByLastName(lastName));
+    }
+
+    @GetMapping("/filter/department")
+    public ResponseEntity<List<MirkwoodStaffPersonalDetailsDTO>> filterByDepartment(@RequestParam String department) {
+        return ResponseEntity.ok(mirkwoodStaffPersonalDetailsService.filterByDepartment(department));
     }
 }

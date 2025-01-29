@@ -11,10 +11,9 @@ public interface MirkwoodStaffPersonalDetailsService {
     Optional<MirkwoodStaffPersonalDetailsDTO> getStaffDetailsByEmployeeId(String employeeId);
     List<MirkwoodStaffPersonalDetailsDTO> getAllStaffDetails();
     List<MirkwoodStaffPersonalDetailsDTO> searchByFirstName(String firstName);
-    List<MirkwoodStaffPersonalDetailsDTO> searchBySecondName(String firstName);
+    List<MirkwoodStaffPersonalDetailsDTO> searchByLastName(String firstName);
     List<MirkwoodStaffPersonalDetailsDTO> filterByDepartment(String department);
-    boolean isEmailRegistered(String email);
-    boolean isPhoneNumberRegistered(String phoneNumber);
+
 
     //create operation
     MirkwoodStaffPersonalDetailsDTO addStaffDetails(MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO);

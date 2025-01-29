@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPersonalDetailsService{
@@ -19,6 +20,7 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
     @Autowired
     private MirkwoodStaffPersonalDetailsRepository mirkwoodStaffPersonalDetailsRepository;
 
+    // find api
     @Override
     public Optional<MirkwoodStaffPersonalDetailsDTO> getStaffDetailsByEmployeeId(String employeeId) {
         Optional<MirkwoodStaffPersonalDetails>optionalMirkwoodStaffPersonalDetails =
@@ -36,33 +38,64 @@ public class MirkwoodStaffPersonalDetailsServiceImpl implements MirkwoodStaffPer
 
     @Override
     public List<MirkwoodStaffPersonalDetailsDTO> getAllStaffDetails() {
-        return List.of();
+        List<MirkwoodStaffPersonalDetails> staffList = mirkwoodStaffPersonalDetailsRepository.findByIsDeletedFalse();
+        if (staffList.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No staff records found.");
+        }
+        return staffList.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
     public List<MirkwoodStaffPersonalDetailsDTO> searchByFirstName(String firstName) {
-        return List.of();
+        if (firstName == null || firstName.trim().isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("First name cannot be empty.");
+        }
+        List<MirkwoodStaffPersonalDetails> staffList = mirkwoodStaffPersonalDetailsRepository.findByFirstNameContainingIgnoreCaseAndIsDeletedFalse(firstName);
+        if (staffList.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No staff found with first name: " + firstName);
+        }
+        return staffList.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<MirkwoodStaffPersonalDetailsDTO> searchBySecondName(String firstName) {
-        return List.of();
+    public List<MirkwoodStaffPersonalDetailsDTO> searchByLastName(String lastName) {
+        if (lastName == null || lastName.trim().isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("Last name cannot be empty.");
+        }
+        List<MirkwoodStaffPersonalDetails> staffList = mirkwoodStaffPersonalDetailsRepository.findByLastNameContainingIgnoreCaseAndIsDeletedFalse(lastName);
+        if (staffList.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No staff found with last name: " + lastName);
+        }
+        return staffList.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
     public List<MirkwoodStaffPersonalDetailsDTO> filterByDepartment(String department) {
-        return List.of();
+        if (department == null || department.trim().isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("Department cannot be empty.");
+        }
+        List<MirkwoodStaffPersonalDetails> staffList = mirkwoodStaffPersonalDetailsRepository.findByDepartmentContainingIgnoreCaseAndIsDeletedFalse(department);
+        if (staffList.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No staff found in department: " + department);
+        }
+        return staffList.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    @Override
-    public boolean isEmailRegistered(String email) {
-        return false;
+    private MirkwoodStaffPersonalDetailsDTO convertToDTO(MirkwoodStaffPersonalDetails entity) {
+        return new MirkwoodStaffPersonalDetailsDTO(
+                entity.getFirstName(),
+                entity.getLastName(),
+                entity.getGender(),
+                entity.getEmailId(),
+                entity.getPhoneNumber(),
+                entity.getEmployeeId(),
+                entity.getDesignation(),
+                entity.getDepartment(),
+                entity.getPermanentAddress()
+        );
     }
 
-    @Override
-    public boolean isPhoneNumberRegistered(String phoneNumber) {
-        return false;
-    }
+
 
     //TODO implement using bloom filter
     @Override
