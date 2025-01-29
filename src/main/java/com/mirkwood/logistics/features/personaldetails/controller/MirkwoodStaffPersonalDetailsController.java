@@ -25,7 +25,7 @@ public class MirkwoodStaffPersonalDetailsController {
     }
 
     //update api
-    @PutMapping("/update/employeeId")
+    @PutMapping("/update/employeeId") //only used for db manager
     public ResponseEntity<MirkwoodStaffPersonalDetailsDTO> updateStaffByEmployeeId(@RequestBody MirkwoodStaffPersonalDetailsDTO mirkwoodStaffPersonalDetailsDTO) {
         if (Objects.isNull(mirkwoodStaffPersonalDetailsDTO.getEmployeeId())) {
             throw new CustomMirkwoodLogisticsExceptions("Employee ID is required to update staff details.");
@@ -60,5 +60,37 @@ public class MirkwoodStaffPersonalDetailsController {
 
         MirkwoodStaffPersonalDetailsDTO updatedStaff = mirkwoodStaffPersonalDetailsService.updateStaffById(mirkwoodStaffPersonalDetailsDTO.getId(), mirkwoodStaffPersonalDetailsDTO);
         return new ResponseEntity<>(updatedStaff, HttpStatus.OK);
+    }
+
+    //delete staff personal details
+
+    @DeleteMapping("/delete/{id}") //only used for db manager
+    public ResponseEntity<String> deleteStaffById(@PathVariable Long id) {
+        if (id == null) {
+            throw new CustomMirkwoodLogisticsExceptions("ID is required for deletion.");
+        }
+        mirkwoodStaffPersonalDetailsService.deleteStaffById(id);
+        return new ResponseEntity<>("Staff with ID " + id + " marked as deleted.", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteStaff(@RequestParam(required = false) String email,
+                                              @RequestParam(required = false) String phoneNumber,
+                                              @RequestParam(required = false) String employeeId) {
+        if (Objects.nonNull(email)) {
+            mirkwoodStaffPersonalDetailsService.deleteStaffByEmail(email);
+            return new ResponseEntity<>("Staff with Email " + email + " marked as deleted.", HttpStatus.OK);
+        }
+        else if (Objects.nonNull(phoneNumber)) {
+            mirkwoodStaffPersonalDetailsService.deleteStaffByPhoneNumber(phoneNumber);
+            return new ResponseEntity<>("Staff with Phone Number " + phoneNumber + " marked as deleted.", HttpStatus.OK);
+        }
+        else if (Objects.nonNull(employeeId)) {
+            mirkwoodStaffPersonalDetailsService.deleteStaffByEmployeeId(employeeId);
+            return new ResponseEntity<>("Staff with Employee ID " + employeeId + " marked as deleted.", HttpStatus.OK);
+        }
+        else {
+            throw new CustomMirkwoodLogisticsExceptions("Deletion failed! Please provide a valid identifier (Email, Phone Number, or Employee ID).");
+        }
     }
 }
