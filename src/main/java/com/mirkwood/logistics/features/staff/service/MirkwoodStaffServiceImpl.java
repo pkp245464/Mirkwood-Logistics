@@ -1,12 +1,22 @@
 package com.mirkwood.logistics.features.staff.service;
 
+import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
+import com.mirkwood.logistics.core.models.MirkwoodStaff;
 import com.mirkwood.logistics.features.staff.dto.MirkwoodStaffDto;
+import com.mirkwood.logistics.features.staff.repository.MirkwoodStaffRepository;
+import com.mirkwood.logistics.features.staff.utility.MirkwoodStaffEntityToDTOMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
+
+    @Autowired
+    private MirkwoodStaffRepository mirkwoodStaffRepository;
 
     // find
     @Override
@@ -47,8 +57,27 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
     // create
     @Override
-    public MirkwoodStaffService createStaff(MirkwoodStaffDto mirkwoodStaffDto) {
-        return null;
+    public MirkwoodStaffDto createStaff(MirkwoodStaffDto mirkwoodStaffDto) {
+        Optional<MirkwoodStaff> existingStaff = mirkwoodStaffRepository.findByStaffUsername(mirkwoodStaffDto.getStaffUsername());
+        if(existingStaff.isPresent()) {
+            throw new CustomMirkwoodLogisticsExceptions("Staff username already exists.");
+        }
+        if (Objects.isNull(mirkwoodStaffDto.getStaffFullName()) || mirkwoodStaffDto.getStaffFullName().trim().isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("Staff full name cannot be empty.");
+        }
+        if (Objects.isNull(mirkwoodStaffDto.getStaffRole())) {
+            throw new CustomMirkwoodLogisticsExceptions("Staff role is required.");
+        }
+        if (Objects.isNull(mirkwoodStaffDto.getStaffOfficeCode()) || mirkwoodStaffDto.getStaffOfficeCode().trim().isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("Staff office code cannot be empty.");
+        }
+        if (Objects.isNull(mirkwoodStaffDto.getStaffOfficeAddress()) || mirkwoodStaffDto.getStaffOfficeAddress().trim().isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("Staff office address cannot be empty.");
+        }
+
+        MirkwoodStaff newStaff = MirkwoodStaffEntityToDTOMapper.mapToEntity(mirkwoodStaffDto);
+        MirkwoodStaff savedStaff = mirkwoodStaffRepository.save(newStaff);
+        return MirkwoodStaffEntityToDTOMapper.mapToDto(savedStaff);
     }
 
     @Override

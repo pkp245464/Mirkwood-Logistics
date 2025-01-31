@@ -17,7 +17,7 @@ public interface MirkwoodStaffService {
 
 
     //create
-    MirkwoodStaffService createStaff(MirkwoodStaffDto mirkwoodStaffDto);
+    MirkwoodStaffDto createStaff(MirkwoodStaffDto mirkwoodStaffDto);
     List<MirkwoodStaffDto> createMultipleStaff(List<MirkwoodStaffDto> mirkwoodStaffDtoList);
 
     //update
