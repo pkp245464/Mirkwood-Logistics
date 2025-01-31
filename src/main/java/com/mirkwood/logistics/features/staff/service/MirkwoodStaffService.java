@@ -29,7 +29,7 @@ public interface MirkwoodStaffService {
     void deleteByStaffId(Long staffId); //only for db manager
     void deleteByStaffUsername(String username);
     void deleteByStaffEmailId(String emailId);
-    void deleteMultipleStaffByUsername(List<MirkwoodStaffDto> mirkwoodStaffDtoList);
+    void deleteMultipleStaffByUsername(List<String> usernames);
 
     //restore
     MirkwoodStaffDto restoreStaffAccountByStaffId(Long staffId); //only for db manager

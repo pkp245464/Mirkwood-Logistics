@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface MirkwoodStaffRepository extends JpaRepository<MirkwoodStaff,Long> {
     Optional<MirkwoodStaff> findByStaffUsername(String staffUsername);
+    Optional<MirkwoodStaff> findByStaffEmailId(String staffEmailId);
 }

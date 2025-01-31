@@ -165,24 +165,59 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
 
     // delete
-    @Override
+    @Override //for db admin
     public void deleteByStaffId(Long staffId) {
+        MirkwoodStaff staff = mirkwoodStaffRepository.findById(staffId)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with id: " + staffId));
 
+        staff.setIsDeleted(true);
+        mirkwoodStaffRepository.save(staff);
     }
 
     @Override
     public void deleteByStaffUsername(String username) {
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsername(username)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with username: " + username));
 
+        staff.setIsDeleted(true);
+        mirkwoodStaffRepository.save(staff);
     }
 
     @Override
     public void deleteByStaffEmailId(String emailId) {
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffEmailId(emailId)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with email id: " + emailId));
 
+        staff.setIsDeleted(true);
+        mirkwoodStaffRepository.save(staff);
     }
 
     @Override
-    public void deleteMultipleStaffByUsername(List<MirkwoodStaffDto> mirkwoodStaffDtoList) {
+    public void deleteMultipleStaffByUsername(List<String> usernames) {
+        List<MirkwoodStaff> staffToDelete = new ArrayList<>();
+        List<String> missingUsernames = new ArrayList<>();
 
+        for (String username : usernames) {
+            MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsername(username)
+                    .orElse(null);
+
+            if (staff != null) {
+                if (staff.getIsDeleted() == null || !staff.getIsDeleted()) {
+                    staff.setIsDeleted(true);
+                    staffToDelete.add(staff);
+                }
+            } else {
+                missingUsernames.add(username);
+            }
+        }
+
+        if (!missingUsernames.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("The following usernames do not exist: " + String.join(", ", missingUsernames));
+        }
+
+        if (!staffToDelete.isEmpty()) {
+            mirkwoodStaffRepository.saveAll(staffToDelete);
+        }
     }
 
 
