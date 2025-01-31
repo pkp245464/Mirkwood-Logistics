@@ -32,7 +32,7 @@ public interface MirkwoodStaffService {
     void deleteMultipleStaffByUsername(List<MirkwoodStaffDto> mirkwoodStaffDtoList);
 
     //restore
-    MirkwoodStaffDto restoreStaffAccountByStaffId(Long staffId, MirkwoodStaffDto mirkwoodStaffDto); //only for db manager
-    MirkwoodStaffDto restoreStaffAccountByUsername(String username, MirkwoodStaffDto mirkwoodStaffDto);
-    MirkwoodStaffDto restoreStaffAccountByEmailId(String emailId, MirkwoodStaffDto mirkwoodStaffDto);
+    MirkwoodStaffDto restoreStaffAccountByStaffId(Long staffId); //only for db manager
+    MirkwoodStaffDto restoreStaffAccountByUsername(String username);
+    MirkwoodStaffDto restoreStaffAccountByEmailId(String emailId);
 }

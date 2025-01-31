@@ -188,17 +188,17 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
     // restore
     @Override
-    public MirkwoodStaffDto restoreStaffAccountByStaffId(Long staffId, MirkwoodStaffDto mirkwoodStaffDto) {
+    public MirkwoodStaffDto restoreStaffAccountByStaffId(Long staffId) {
         return null;
     }
 
     @Override
-    public MirkwoodStaffDto restoreStaffAccountByUsername(String username, MirkwoodStaffDto mirkwoodStaffDto) {
+    public MirkwoodStaffDto restoreStaffAccountByUsername(String username) {
         return null;
     }
 
     @Override
-    public MirkwoodStaffDto restoreStaffAccountByEmailId(String emailId, MirkwoodStaffDto mirkwoodStaffDto) {
+    public MirkwoodStaffDto restoreStaffAccountByEmailId(String emailId) {
         return null;
     }
 }
