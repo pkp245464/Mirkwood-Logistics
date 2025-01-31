@@ -13,7 +13,8 @@ public class MirkwoodStaffEntityToDTOMapper {
                 staff.getStaffOfficeCode(),
                 staff.getStaffOfficeAddress(),
                 staff.getStaffEmailId(),
-                staff.getStaffPhoneNumber()
+                staff.getStaffPhoneNumber(),
+                staff.getIsDeleted()
         );
     }
     public static MirkwoodStaff mapToEntity(MirkwoodStaffDto dto) {
@@ -25,6 +26,7 @@ public class MirkwoodStaffEntityToDTOMapper {
         staff.setStaffOfficeAddress(dto.getStaffOfficeAddress());
         staff.setStaffEmailId(dto.getStaffEmailId());
         staff.setStaffPhoneNumber(dto.getStaffPhoneNumber());
+        staff.setIsDeleted(false);
         return staff;
     }
 }

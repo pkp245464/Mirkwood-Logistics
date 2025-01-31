@@ -35,12 +35,15 @@ public class MirkwoodStaffDto {
     @JsonProperty("staff_phone_number")
     private String staffPhoneNumber;
 
+    @JsonProperty("is_Deleted")
+    private Boolean isDeleted;
+
     public MirkwoodStaffDto() {
     }
 
     public MirkwoodStaffDto(Long staffId, String staffUsername, String staffFullName, StaffRole staffRole,
                             String staffOfficeCode, String staffOfficeAddress, String staffEmailId,
-                            String staffPhoneNumber) {
+                            String staffPhoneNumber, Boolean isDeleted) {
         this.staffId = staffId;
         this.staffUsername = staffUsername;
         this.staffFullName = staffFullName;
@@ -49,5 +52,6 @@ public class MirkwoodStaffDto {
         this.staffOfficeAddress = staffOfficeAddress;
         this.staffEmailId = staffEmailId;
         this.staffPhoneNumber = staffPhoneNumber;
+        this.isDeleted = isDeleted;
     }
 }

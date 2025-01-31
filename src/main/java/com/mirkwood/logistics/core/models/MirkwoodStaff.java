@@ -38,4 +38,6 @@ public class MirkwoodStaff {
     @Column(name = "staff_phone_number")
     private String staffPhoneNumber;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = false;
 }
