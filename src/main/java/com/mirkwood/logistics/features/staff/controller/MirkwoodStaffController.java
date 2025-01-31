@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/mirkwood-logistics/staff")
@@ -75,6 +76,39 @@ public class MirkwoodStaffController {
             return ResponseEntity.ok("Staff members with the provided usernames have been deleted.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error occurred while deleting staff members.");
+        }
+    }
+
+    @PutMapping("/restore")
+    public ResponseEntity<MirkwoodStaffDto> restoreStaffAccount(
+            @RequestParam(value = "staffId", required = false) Long staffId,
+            @RequestParam(value = "username", required = false) String username,
+            @RequestParam(value = "emailId", required = false) String emailId) {
+
+        if (Objects.isNull(staffId) && Objects.isNull(username) && Objects.isNull(emailId)) {
+            throw new CustomMirkwoodLogisticsExceptions("At least one parameter (staffId, username, or emailId) is required.");
+        }
+
+        try {
+            MirkwoodStaffDto restoredStaff = null;
+            if (Objects.nonNull(staffId)) {
+                restoredStaff = mirkwoodStaffService.restoreStaffAccountByStaffId(staffId);
+            }
+            else if (Objects.nonNull(username)) {
+                restoredStaff = mirkwoodStaffService.restoreStaffAccountByUsername(username);
+            }
+            else {
+                restoredStaff = mirkwoodStaffService.restoreStaffAccountByEmailId(emailId);
+            }
+
+            return new ResponseEntity<>(restoredStaff, HttpStatus.OK);
+
+        }
+        catch (CustomMirkwoodLogisticsExceptions e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

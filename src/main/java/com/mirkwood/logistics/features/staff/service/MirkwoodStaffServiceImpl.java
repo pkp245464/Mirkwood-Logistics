@@ -224,16 +224,36 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
     // restore
     @Override
     public MirkwoodStaffDto restoreStaffAccountByStaffId(Long staffId) {
-        return null;
+        Optional<MirkwoodStaff> staffOptional = mirkwoodStaffRepository.findById(staffId);
+
+        if (staffOptional.isPresent()) {
+            MirkwoodStaff staff = staffOptional.get();
+            staff.setIsDeleted(false);
+            MirkwoodStaff updatedStaff = mirkwoodStaffRepository.save(staff);
+            return MirkwoodStaffEntityToDTOMapper.mapToDto(updatedStaff);
+        } else {
+            throw new CustomMirkwoodLogisticsExceptions("Staff not found with id: " + staffId);
+        }
     }
 
     @Override
     public MirkwoodStaffDto restoreStaffAccountByUsername(String username) {
-        return null;
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsername(username)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with username: " + username));
+
+        staff.setIsDeleted(false);
+        MirkwoodStaff updatedStaff = mirkwoodStaffRepository.save(staff);
+        return MirkwoodStaffEntityToDTOMapper.mapToDto(updatedStaff);
     }
 
     @Override
     public MirkwoodStaffDto restoreStaffAccountByEmailId(String emailId) {
-        return null;
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffEmailId(emailId)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with email: " + emailId));
+
+        staff.setIsDeleted(false);
+        MirkwoodStaff updatedStaff = mirkwoodStaffRepository.save(staff);
+        return MirkwoodStaffEntityToDTOMapper.mapToDto(updatedStaff);
     }
+
 }

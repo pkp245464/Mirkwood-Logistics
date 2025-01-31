@@ -20,7 +20,7 @@ public interface MirkwoodStaffService {
     MirkwoodStaffDto createStaff(MirkwoodStaffDto mirkwoodStaffDto);
     List<MirkwoodStaffDto> createMultipleStaff(List<MirkwoodStaffDto> mirkwoodStaffDtoList);
 
-    //update
+    //update (you can't update is_delete attributes here)
     MirkwoodStaffDto updateStaffByUsername(String username,MirkwoodStaffDto mirkwoodStaffDto);
     MirkwoodStaffDto updateStaffByEmailId(String emailId,MirkwoodStaffDto mirkwoodStaffDto);
     List<MirkwoodStaffDto> updateMultipleStaffByUsername(List<MirkwoodStaffDto> mirkwoodStaffDtoList);
