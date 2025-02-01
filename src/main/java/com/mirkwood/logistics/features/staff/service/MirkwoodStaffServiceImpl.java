@@ -6,6 +6,7 @@ import com.mirkwood.logistics.core.models.MirkwoodStaff;
 import com.mirkwood.logistics.features.staff.dto.MirkwoodStaffDto;
 import com.mirkwood.logistics.features.staff.repository.MirkwoodStaffRepository;
 import com.mirkwood.logistics.features.staff.utility.MirkwoodStaffEntityToDTOMapper;
+import com.mirkwood.logistics.features.staff.utility.MirkwoodStaffUpdateUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -184,16 +185,30 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
 
 
-
+    // TODO: some logic is missing, check after some time
     //update
     @Override
     public MirkwoodStaffDto updateStaffByUsername(String username, MirkwoodStaffDto mirkwoodStaffDto) {
-        return null;
+        MirkwoodStaff existingStaff = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(username)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff with username '" + username + "' not found or is deleted."));
+
+        MirkwoodStaffUpdateUtility.updateStaffFields(existingStaff, mirkwoodStaffDto);
+
+        MirkwoodStaff updatedStaff = mirkwoodStaffRepository.save(existingStaff);
+
+        return MirkwoodStaffEntityToDTOMapper.mapToDto(updatedStaff);
     }
 
     @Override
     public MirkwoodStaffDto updateStaffByEmailId(String emailId, MirkwoodStaffDto mirkwoodStaffDto) {
-        return null;
+        MirkwoodStaff existingStaff = mirkwoodStaffRepository.findByStaffEmailIdAndIsDeletedFalse(emailId)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff with email ID '" + emailId + "' not found or is deleted."));
+
+        MirkwoodStaffUpdateUtility.updateStaffFields(existingStaff, mirkwoodStaffDto);
+
+        MirkwoodStaff updatedStaff = mirkwoodStaffRepository.save(existingStaff);
+
+        return MirkwoodStaffEntityToDTOMapper.mapToDto(updatedStaff);
     }
 
     @Override

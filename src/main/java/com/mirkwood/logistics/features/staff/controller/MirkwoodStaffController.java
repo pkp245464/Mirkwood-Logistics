@@ -154,4 +154,30 @@ public class MirkwoodStaffController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // update
+    @PutMapping("/update/username")
+    public ResponseEntity<MirkwoodStaffDto> updateStaffByUsername(
+            @RequestBody MirkwoodStaffDto mirkwoodStaffDto) {
+        String username = mirkwoodStaffDto.getStaffUsername();
+        if (Objects.isNull(username)) {
+            throw new CustomMirkwoodLogisticsExceptions("Staff username is required to update staff details.");
+        }
+
+        MirkwoodStaffDto updatedStaff = mirkwoodStaffService.updateStaffByUsername(username, mirkwoodStaffDto);
+        return ResponseEntity.ok(updatedStaff);
+    }
+
+    @PutMapping("/update/email")
+    public ResponseEntity<MirkwoodStaffDto> updateStaffByEmailId(
+            @RequestBody MirkwoodStaffDto mirkwoodStaffDto) {
+
+        String emailId = mirkwoodStaffDto.getStaffEmailId();
+        if (Objects.isNull(emailId)) {
+            throw new CustomMirkwoodLogisticsExceptions("Staff emailId is required to update staff details.");
+        }
+
+        MirkwoodStaffDto updatedStaffDto = mirkwoodStaffService.updateStaffByEmailId(emailId, mirkwoodStaffDto);
+        return ResponseEntity.ok(updatedStaffDto);
+    }
 }
