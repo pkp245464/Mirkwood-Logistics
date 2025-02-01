@@ -20,18 +20,25 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
     // find
     @Override
     public MirkwoodStaffDto findByStaffId(Long staffId) {
-        return null;
+        MirkwoodStaff staff = mirkwoodStaffRepository.findById(staffId)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with ID: " + staffId));
+        return MirkwoodStaffEntityToDTOMapper.mapToDto(staff);
     }
 
     @Override
     public MirkwoodStaffDto findStaffByUsername(String username) {
-        return null;
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsername(username)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with username: " + username));
+        return MirkwoodStaffEntityToDTOMapper.mapToDto(staff);
     }
 
     @Override
     public MirkwoodStaffDto findStaffByEmailId(String emailId) {
-        return null;
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffEmailId(emailId)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with email ID: " + emailId));
+        return MirkwoodStaffEntityToDTOMapper.mapToDto(staff);
     }
+
 
     @Override
     public List<MirkwoodStaffDto> findAllStaff() {

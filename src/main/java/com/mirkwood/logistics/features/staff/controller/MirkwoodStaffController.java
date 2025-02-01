@@ -18,6 +18,26 @@ public class MirkwoodStaffController {
     @Autowired
     private MirkwoodStaffService mirkwoodStaffService;
 
+    // find
+    @GetMapping("/fetch/{staffId}")
+    public ResponseEntity<MirkwoodStaffDto> getStaffById(@PathVariable Long staffId) {
+        MirkwoodStaffDto staffDto = mirkwoodStaffService.findByStaffId(staffId);
+        return ResponseEntity.ok(staffDto);
+    }
+
+    @GetMapping("/fetch/username/{username}")
+    public ResponseEntity<MirkwoodStaffDto> getStaffByUsername(@PathVariable String username) {
+        MirkwoodStaffDto staffDto = mirkwoodStaffService.findStaffByUsername(username);
+        return ResponseEntity.ok(staffDto);
+    }
+
+    @GetMapping("/fetch/email/{emailId}")
+    public ResponseEntity<MirkwoodStaffDto> getStaffByEmail(@PathVariable String emailId) {
+        MirkwoodStaffDto staffDto = mirkwoodStaffService.findStaffByEmailId(emailId);
+        return ResponseEntity.ok(staffDto);
+    }
+
+
     // create
     @PostMapping("/signup")
     public ResponseEntity<MirkwoodStaffDto> createNewStaff(@RequestBody MirkwoodStaffDto mirkwoodStaffDto) {
