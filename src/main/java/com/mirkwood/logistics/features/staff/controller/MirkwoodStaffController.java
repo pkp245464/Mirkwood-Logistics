@@ -37,6 +37,29 @@ public class MirkwoodStaffController {
         return ResponseEntity.ok(staffDto);
     }
 
+    @GetMapping("/fetch/all")
+    public ResponseEntity<List<MirkwoodStaffDto>> getAllStaff() {
+        List<MirkwoodStaffDto> staffList = mirkwoodStaffService.findAllStaff();
+        return ResponseEntity.ok(staffList);
+    }
+
+    @GetMapping("/fetch/role/{staffRole}")
+    public ResponseEntity<List<MirkwoodStaffDto>> getStaffByRole(@PathVariable String staffRole) {
+        List<MirkwoodStaffDto> staffList = mirkwoodStaffService.findByStaffRole(staffRole);
+        return ResponseEntity.ok(staffList);
+    }
+
+    @GetMapping("/fetch/office-code/{officeCode}")
+    public ResponseEntity<List<MirkwoodStaffDto>> getStaffByOfficeCode(@PathVariable String officeCode) {
+        List<MirkwoodStaffDto> staffList = mirkwoodStaffService.findByStaffOfficeCode(officeCode);
+        return ResponseEntity.ok(staffList);
+    }
+
+    @GetMapping("/fetch/office-address/{officeAddress}")
+    public ResponseEntity<List<MirkwoodStaffDto>> getStaffByOfficeAddress(@PathVariable String officeAddress) {
+        List<MirkwoodStaffDto> staffList = mirkwoodStaffService.findByStaffOfficeAddress(officeAddress);
+        return ResponseEntity.ok(staffList);
+    }
 
     // create
     @PostMapping("/signup")

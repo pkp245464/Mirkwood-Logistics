@@ -1,5 +1,6 @@
 package com.mirkwood.logistics.features.staff.service;
 
+import com.mirkwood.logistics.core.enums.StaffRole;
 import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
 import com.mirkwood.logistics.core.models.MirkwoodStaff;
 import com.mirkwood.logistics.features.staff.dto.MirkwoodStaffDto;
@@ -20,21 +21,21 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
     // find
     @Override
     public MirkwoodStaffDto findByStaffId(Long staffId) {
-        MirkwoodStaff staff = mirkwoodStaffRepository.findById(staffId)
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffIdAndIsDeletedFalse(staffId)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with ID: " + staffId));
         return MirkwoodStaffEntityToDTOMapper.mapToDto(staff);
     }
 
     @Override
     public MirkwoodStaffDto findStaffByUsername(String username) {
-        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsername(username)
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(username)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with username: " + username));
         return MirkwoodStaffEntityToDTOMapper.mapToDto(staff);
     }
 
     @Override
     public MirkwoodStaffDto findStaffByEmailId(String emailId) {
-        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffEmailId(emailId)
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffEmailIdAndIsDeletedFalse(emailId)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with email ID: " + emailId));
         return MirkwoodStaffEntityToDTOMapper.mapToDto(staff);
     }
@@ -42,29 +43,59 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
     @Override
     public List<MirkwoodStaffDto> findAllStaff() {
-        return List.of();
+        List<MirkwoodStaff> staffList = mirkwoodStaffRepository.findByIsDeletedFalse();
+        if (staffList.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No staff found");
+        }
+        return staffList.stream()
+                .map(MirkwoodStaffEntityToDTOMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<MirkwoodStaffDto> findByStaffRole(String staffRole) {
-        return List.of();
+        try {
+            StaffRole roleEnum = StaffRole.valueOf(staffRole.toUpperCase());
+            List<MirkwoodStaff> staffList = mirkwoodStaffRepository.findByStaffRoleAndIsDeletedFalse(roleEnum);
+            if (staffList.isEmpty()) {
+                throw new CustomMirkwoodLogisticsExceptions("No staff found for the given role.");
+            }
+            return staffList.stream()
+                    .map(MirkwoodStaffEntityToDTOMapper::mapToDto)
+                    .collect(Collectors.toList());
+        }
+        catch (IllegalArgumentException e) {
+            throw new CustomMirkwoodLogisticsExceptions("Invalid staff role provided: " + staffRole);
+        }
     }
 
     @Override
     public List<MirkwoodStaffDto> findByStaffOfficeCode(String officeCode) {
-        return List.of();
+        List<MirkwoodStaff> staffList = mirkwoodStaffRepository.findByStaffOfficeCodeAndIsDeletedFalse(officeCode);
+        if (staffList.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No staff found for the given office code.");
+        }
+        return staffList.stream()
+                .map(MirkwoodStaffEntityToDTOMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<MirkwoodStaffDto> findByStaffOfficeAddress(String officeAddress) {
-        return List.of();
+        List<MirkwoodStaff> staffList = mirkwoodStaffRepository.findByStaffOfficeAddressContainingIgnoreCaseAndIsDeletedFalse(officeAddress);
+        if (staffList.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No staff found for the given office address.");
+        }
+        return staffList.stream()
+                .map(MirkwoodStaffEntityToDTOMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
 
     // create
     @Override
     public MirkwoodStaffDto createStaff(MirkwoodStaffDto mirkwoodStaffDto) {
-        Optional<MirkwoodStaff> existingStaff = mirkwoodStaffRepository.findByStaffUsername(mirkwoodStaffDto.getStaffUsername());
+        Optional<MirkwoodStaff> existingStaff = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(mirkwoodStaffDto.getStaffUsername());
         if(existingStaff.isPresent()) {
             throw new CustomMirkwoodLogisticsExceptions("Staff username already exists.");
         }
@@ -112,7 +143,7 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
         }
 
         List<String> providedUsernamesList = new ArrayList<>(providedUsernames);
-        List<String> existingUsernames = mirkwoodStaffRepository.findByStaffUsername(String.join(",", providedUsernamesList))
+        List<String> existingUsernames = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(String.join(",", providedUsernamesList))
                 .stream().map(MirkwoodStaff::getStaffUsername).collect(Collectors.toList());
 
         if (!existingUsernames.isEmpty()) {
@@ -183,7 +214,7 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
     @Override
     public void deleteByStaffUsername(String username) {
-        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsername(username)
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(username)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with username: " + username));
 
         staff.setIsDeleted(true);
@@ -192,7 +223,7 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
     @Override
     public void deleteByStaffEmailId(String emailId) {
-        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffEmailId(emailId)
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffEmailIdAndIsDeletedFalse(emailId)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with email id: " + emailId));
 
         staff.setIsDeleted(true);
@@ -205,7 +236,7 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
         List<String> missingUsernames = new ArrayList<>();
 
         for (String username : usernames) {
-            MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsername(username)
+            MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(username)
                     .orElse(null);
 
             if (staff != null) {
@@ -245,7 +276,7 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
     @Override
     public MirkwoodStaffDto restoreStaffAccountByUsername(String username) {
-        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsername(username)
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(username)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with username: " + username));
 
         staff.setIsDeleted(false);
@@ -255,7 +286,7 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
     @Override
     public MirkwoodStaffDto restoreStaffAccountByEmailId(String emailId) {
-        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffEmailId(emailId)
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffEmailIdAndIsDeletedFalse(emailId)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found with email: " + emailId));
 
         staff.setIsDeleted(false);
