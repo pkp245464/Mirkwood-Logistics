@@ -1,5 +1,6 @@
 package com.mirkwood.logistics.core.models;
 
+import com.mirkwood.logistics.core.enums.ParcelLifecycleStatus;
 import com.mirkwood.logistics.core.enums.ParcelType;
 import jakarta.persistence.*;
 
@@ -47,6 +48,10 @@ public class Parcel {
 
     @Column(name = "receiver_email_id")
     private String receiverEmailId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "parcel_life_cycle_status", nullable = false)
+    private ParcelLifecycleStatus parcelLifecycleStatus;
 
     //parcel logs details
     @OneToMany(mappedBy = "parcel", cascade = CascadeType.ALL, orphanRemoval = true)
