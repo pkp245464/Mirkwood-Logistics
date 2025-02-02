@@ -185,7 +185,6 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
 
 
-    // TODO: some logic is missing, check after some time
     //update
     @Override
     public MirkwoodStaffDto updateStaffByUsername(String username, MirkwoodStaffDto mirkwoodStaffDto) {
@@ -213,7 +212,19 @@ public class MirkwoodStaffServiceImpl implements MirkwoodStaffService{
 
     @Override
     public List<MirkwoodStaffDto> updateMultipleStaffByUsername(List<MirkwoodStaffDto> mirkwoodStaffDtoList) {
-        return List.of();
+        List<MirkwoodStaffDto> updatedStaffDtoList = new ArrayList<>();
+
+        for (MirkwoodStaffDto mirkwoodStaffDto : mirkwoodStaffDtoList) {
+            MirkwoodStaff existingStaff = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(mirkwoodStaffDto.getStaffUsername())
+                    .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff with username '" + mirkwoodStaffDto.getStaffUsername() + "' not found or is deleted."));
+
+            MirkwoodStaffUpdateUtility.updateStaffFields(existingStaff, mirkwoodStaffDto);
+
+            MirkwoodStaff updatedStaff = mirkwoodStaffRepository.save(existingStaff);
+
+            updatedStaffDtoList.add(MirkwoodStaffEntityToDTOMapper.mapToDto(updatedStaff));
+        }
+        return updatedStaffDtoList;
     }
 
 

@@ -180,4 +180,11 @@ public class MirkwoodStaffController {
         MirkwoodStaffDto updatedStaffDto = mirkwoodStaffService.updateStaffByEmailId(emailId, mirkwoodStaffDto);
         return ResponseEntity.ok(updatedStaffDto);
     }
+
+    @PutMapping("/update/multiple")
+    public ResponseEntity<List<MirkwoodStaffDto>> updateMultipleStaffByUsername(
+            @RequestBody List<MirkwoodStaffDto> mirkwoodStaffDtoList) {
+        List<MirkwoodStaffDto> updatedStaffList = mirkwoodStaffService.updateMultipleStaffByUsername(mirkwoodStaffDtoList);
+        return ResponseEntity.ok(updatedStaffList);
+    }
 }
