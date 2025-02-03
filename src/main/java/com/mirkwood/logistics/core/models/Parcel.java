@@ -4,6 +4,7 @@ import com.mirkwood.logistics.core.enums.ParcelLifecycleStatus;
 import com.mirkwood.logistics.core.enums.ParcelType;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -48,6 +49,12 @@ public class Parcel {
 
     @Column(name = "receiver_email_id")
     private String receiverEmailId;
+
+    @Column(name = "registered_date", nullable = false, updatable = false)
+    private LocalDateTime registeredDate;
+
+    @Column(name = "expected_delivery_date")
+    private LocalDateTime expectedDeliveryDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "parcel_life_cycle_status", nullable = false)

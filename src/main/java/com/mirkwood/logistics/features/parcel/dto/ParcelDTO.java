@@ -7,6 +7,7 @@ import com.mirkwood.logistics.core.enums.ParcelType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -51,6 +52,12 @@ public class ParcelDTO {
 
     @JsonProperty("parcel_life_cycle_status")
     private ParcelLifecycleStatus parcelLifecycleStatus;
+
+    @JsonProperty("registered_date")
+    private LocalDateTime registeredDate;
+
+    @JsonProperty("expected_delivery")
+    private LocalDateTime expectedDeliveryDate;
 
     // parcel logs details
     @JsonProperty("tracking_logs")
