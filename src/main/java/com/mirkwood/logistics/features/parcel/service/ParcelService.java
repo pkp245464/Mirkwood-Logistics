@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ParcelService {
 
-    //find
+    //find (list the parcel which is "ACTIVE")
     long getTotalParcelsCount();
     List<ParcelDTO> getAllParcels();
     ParcelDTO getParcelById(Long parcelId);
