@@ -1,7 +1,7 @@
 package com.mirkwood.logistics.features.parcel.tracking;
 import java.security.SecureRandom;
 
-//TODO: we testing number generator, we modify later
+//TODO: implement tracking system which are used in indian post office
 public class TrackingNumberGenerator {
     private static final String PREFIX = "MW";
     private static final int BASE_LENGTH = 9;
@@ -17,7 +17,7 @@ public class TrackingNumberGenerator {
         int checkDigit = calculateLuhnCheckDigit(trackingNumber.toString());
         trackingNumber.append(checkDigit);
 
-        return PREFIX + trackingNumber;
+        return PREFIX + trackingNumber.toString();
     }
 
     private static int calculateLuhnCheckDigit(String number) {

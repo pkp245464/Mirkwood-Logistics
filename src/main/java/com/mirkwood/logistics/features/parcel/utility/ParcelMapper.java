@@ -4,6 +4,7 @@ import com.mirkwood.logistics.core.enums.ParcelLifecycleStatus;
 import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
 import com.mirkwood.logistics.core.models.Parcel;
 import com.mirkwood.logistics.features.parcel.dto.ParcelDTO;
+import com.mirkwood.logistics.features.parcel.tracking.TrackingNumberGenerator;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -42,11 +43,10 @@ public class ParcelMapper {
         // Validate the input parcelDTO
         validateParcelDTO(parcelDTO);
 
-        //TODO:
-        String trackingNUmber = "";
+        String trackingNumber = TrackingNumberGenerator.generateTrackingNumber();
 
         Parcel parcel = new Parcel();
-        parcel.setTrackingNumber(parcelDTO.getTrackingNumber());
+        parcel.setTrackingNumber(trackingNumber);
         parcel.setParcelType(parcelDTO.getParcelType());
 
         //sender
