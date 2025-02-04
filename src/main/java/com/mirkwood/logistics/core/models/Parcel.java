@@ -3,10 +3,14 @@ package com.mirkwood.logistics.core.models;
 import com.mirkwood.logistics.core.enums.ParcelLifecycleStatus;
 import com.mirkwood.logistics.core.enums.ParcelType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "parcels")
 public class Parcel {
@@ -16,7 +20,7 @@ public class Parcel {
     @Column(name = "parcel_id")
     private Long parcelId;
 
-    @Column(name = "tracking_number", unique = true, nullable = false)
+    @Column(name = "tracking_number", unique = true)
     private String trackingNumber;
 
     @Enumerated(EnumType.STRING)
@@ -50,7 +54,8 @@ public class Parcel {
     @Column(name = "receiver_email_id")
     private String receiverEmailId;
 
-    @Column(name = "registered_date", nullable = false, updatable = false)
+    // parcel date
+    @Column(name = "registered_date", updatable = false)
     private LocalDateTime registeredDate;
 
     @Column(name = "expected_delivery_date")
@@ -58,7 +63,7 @@ public class Parcel {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "parcel_life_cycle_status", nullable = false)
-    private ParcelLifecycleStatus parcelLifecycleStatus;
+    private ParcelLifecycleStatus parcelLifecycleStatus = ParcelLifecycleStatus.ACTIVE;
 
     //parcel logs details
     @OneToMany(mappedBy = "parcel", cascade = CascadeType.ALL, orphanRemoval = true)

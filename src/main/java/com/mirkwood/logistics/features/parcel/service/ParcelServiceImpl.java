@@ -1,12 +1,28 @@
 package com.mirkwood.logistics.features.parcel.service;
 
+import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
+import com.mirkwood.logistics.core.models.Parcel;
 import com.mirkwood.logistics.features.parcel.dto.ParcelDTO;
+import com.mirkwood.logistics.features.parcel.repository.ParcelRepository;
+import com.mirkwood.logistics.features.parcel.tracking.TrackingNumberGenerator;
+import com.mirkwood.logistics.features.parcel.utility.ParcelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ParcelServiceImpl implements ParcelService{
+
+    private static final Logger logger = LoggerFactory.getLogger(ParcelServiceImpl.class);
+
+
+    @Autowired
+    private ParcelRepository parcelRepository;
 
     @Override
     public long getTotalParcelsCount() {
@@ -45,7 +61,9 @@ public class ParcelServiceImpl implements ParcelService{
 
     @Override
     public ParcelDTO createNewParcel(ParcelDTO parcelDTO) {
-        return null;
+        Parcel parcel = ParcelMapper.mapToEntity(parcelDTO);
+        Parcel savedParcel = parcelRepository.save(parcel);
+        return ParcelMapper.mapToDTO(savedParcel);
     }
 
     @Override
