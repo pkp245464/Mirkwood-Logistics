@@ -43,6 +43,24 @@ public class ParcelController {
         return ResponseEntity.ok(parcelDTO);
     }
 
+    @GetMapping("/fetch/sender")
+    public ResponseEntity<List<ParcelDTO>> getParcelsBySender(@RequestParam String senderName) {
+        List<ParcelDTO> parcels = parcelService.getParcelsBySender(senderName);
+        return ResponseEntity.ok(parcels);
+    }
+
+    @GetMapping("/fetch/receiver")
+    public ResponseEntity<List<ParcelDTO>> getParcelsByReceiver(@RequestParam String receiverName) {
+        List<ParcelDTO> parcels = parcelService.getParcelsByReceiver(receiverName);
+        return ResponseEntity.ok(parcels);
+    }
+
+    @GetMapping("/fetch/date-range")
+    public ResponseEntity<List<ParcelDTO>> getParcelsByDateRange(@RequestParam String startDate, @RequestParam String endDate) {
+        List<ParcelDTO> parcels = parcelService.getParcelsByDateRange(startDate, endDate);
+        return ResponseEntity.ok(parcels);
+    }
+
     // create
     @PostMapping("/register")
     public ResponseEntity<ParcelDTO> registerNewParcel(@RequestBody ParcelDTO parcelDTO) {

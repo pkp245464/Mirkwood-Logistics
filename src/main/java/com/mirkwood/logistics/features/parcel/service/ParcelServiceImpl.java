@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,17 +61,37 @@ public class ParcelServiceImpl implements ParcelService{
 
     @Override
     public List<ParcelDTO> getParcelsBySender(String senderName) {
-        return List.of();
+        List<Parcel> parcels = parcelRepository.findBySenderNameAndParcelLifecycleStatus(senderName, ParcelLifecycleStatus.ACTIVE);
+        if (parcels.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No active parcels found for sender: " + senderName);
+        }
+        return parcels.stream()
+                .map(ParcelMapper::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<ParcelDTO> getParcelsByReceiver(String receiverName) {
-        return List.of();
+        List<Parcel> parcels = parcelRepository.findByReceiverNameAndParcelLifecycleStatus(receiverName, ParcelLifecycleStatus.ACTIVE);
+        if (parcels.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No active parcels found for receiver: " + receiverName);
+        }
+        return parcels.stream()
+                .map(ParcelMapper::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<ParcelDTO> getParcelsByDateRange(String startDate, String endDate) {
-        return List.of();
+        LocalDateTime start = LocalDateTime.parse(startDate);
+        LocalDateTime end = LocalDateTime.parse(endDate);
+        List<Parcel> parcels = parcelRepository.findByDateRangeAndLifecycleStatus(start, end, ParcelLifecycleStatus.ACTIVE);
+        if (parcels.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No active parcels found for the given date range");
+        }
+        return parcels.stream()
+                .map(ParcelMapper::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
