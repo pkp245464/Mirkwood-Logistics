@@ -31,7 +31,7 @@ public interface ParcelService {
 
 
     // restore
-    ParcelDTO restoreParcelByParcelId(Long parcelId);
-    ParcelDTO restoreParcelByTrackingNumber(String trackingNumber);
+    void restoreParcelByParcelId(Long parcelId);
+    void restoreParcelByTrackingNumber(String trackingNumber);
 
 }

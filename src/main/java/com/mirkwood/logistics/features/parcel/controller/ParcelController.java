@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -18,6 +19,18 @@ public class ParcelController {
     private ParcelService parcelService;
 
     // find
+    @GetMapping("/fetch/count")
+    public ResponseEntity<Long> getTotalParcelsCount() {
+        long count = parcelService.getTotalParcelsCount();
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/fetch/all")
+    public ResponseEntity<List<ParcelDTO>> getAllParcels() {
+        List<ParcelDTO> parcelDTOs = parcelService.getAllParcels();
+        return ResponseEntity.ok(parcelDTOs);
+    }
+
     @GetMapping("/fetch/parcelId/{parcelId}")
     public ResponseEntity<ParcelDTO> getByParcelId(@PathVariable Long parcelId) {
         ParcelDTO parcelDTO = parcelService.getParcelById(parcelId);

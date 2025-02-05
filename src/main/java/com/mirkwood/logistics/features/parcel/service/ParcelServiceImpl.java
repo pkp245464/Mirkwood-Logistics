@@ -5,17 +5,14 @@ import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
 import com.mirkwood.logistics.core.models.Parcel;
 import com.mirkwood.logistics.features.parcel.dto.ParcelDTO;
 import com.mirkwood.logistics.features.parcel.repository.ParcelRepository;
-import com.mirkwood.logistics.features.parcel.tracking.TrackingNumberGenerator;
 import com.mirkwood.logistics.features.parcel.utility.ParcelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ParcelServiceImpl implements ParcelService{
@@ -28,12 +25,22 @@ public class ParcelServiceImpl implements ParcelService{
 
     @Override
     public long getTotalParcelsCount() {
-        return 0;
+        List<Parcel> activeParcels = parcelRepository.findByParcelLifecycleStatus(ParcelLifecycleStatus.ACTIVE);
+        if (activeParcels.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No active parcels found");
+        }
+        return activeParcels.size();
     }
 
     @Override
     public List<ParcelDTO> getAllParcels() {
-        return List.of();
+        List<Parcel> activeParcels = parcelRepository.findByParcelLifecycleStatus(ParcelLifecycleStatus.ACTIVE);
+        if (activeParcels.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("No active parcels found");
+        }
+        return activeParcels.stream()
+                .map(ParcelMapper::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -111,7 +118,7 @@ public class ParcelServiceImpl implements ParcelService{
 
 
     @Override
-    public ParcelDTO restoreParcelByParcelId(Long parcelId) {
+    public void restoreParcelByParcelId(Long parcelId) {
         Parcel parcel = parcelRepository.findByParcelIdAndParcelLifecycleStatus(parcelId, ParcelLifecycleStatus.INACTIVE)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Parcel with ID " + parcelId + " not found."));
 
@@ -122,11 +129,11 @@ public class ParcelServiceImpl implements ParcelService{
         parcel.setParcelLifecycleStatus(ParcelLifecycleStatus.ACTIVE);
         parcelRepository.save(parcel);
 
-        return ParcelMapper.mapToDTO(parcel);
+        ParcelMapper.mapToDTO(parcel);
     }
 
     @Override
-    public ParcelDTO restoreParcelByTrackingNumber(String trackingNumber) {
+    public void restoreParcelByTrackingNumber(String trackingNumber) {
         Parcel parcel = parcelRepository.findByTrackingNumberAndParcelLifecycleStatus(trackingNumber, ParcelLifecycleStatus.INACTIVE)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Parcel with tracking number " + trackingNumber + " not found or already active."));
 
@@ -137,6 +144,6 @@ public class ParcelServiceImpl implements ParcelService{
         parcel.setParcelLifecycleStatus(ParcelLifecycleStatus.ACTIVE);
         parcelRepository.save(parcel);
 
-        return ParcelMapper.mapToDTO(parcel);
+        ParcelMapper.mapToDTO(parcel);
     }
 }
