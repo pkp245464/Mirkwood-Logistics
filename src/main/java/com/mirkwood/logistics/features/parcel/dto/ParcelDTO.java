@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mirkwood.logistics.core.enums.ParcelLifecycleStatus;
 import com.mirkwood.logistics.core.enums.ParcelType;
+import com.mirkwood.logistics.features.tracking.dto.ParcelTrackingLogDTO;
 import lombok.Getter;
 import lombok.Setter;
 
