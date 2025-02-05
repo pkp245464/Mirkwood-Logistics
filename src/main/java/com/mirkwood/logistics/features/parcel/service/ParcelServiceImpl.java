@@ -6,6 +6,7 @@ import com.mirkwood.logistics.core.models.Parcel;
 import com.mirkwood.logistics.features.parcel.dto.ParcelDTO;
 import com.mirkwood.logistics.features.parcel.repository.ParcelRepository;
 import com.mirkwood.logistics.features.parcel.utility.ParcelMapper;
+import com.mirkwood.logistics.features.parcel.utility.ParcelUpdateMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,12 +104,24 @@ public class ParcelServiceImpl implements ParcelService{
 
     @Override
     public ParcelDTO updateStatusByParcelId(Long parcelId, ParcelDTO parcelDTO) {
-        return null;
+        Parcel parcel = parcelRepository.findByParcelIdAndParcelLifecycleStatus(parcelId, ParcelLifecycleStatus.ACTIVE)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Active parcel not found with ID: " + parcelId));
+
+        ParcelUpdateMapper.updateSenderReceiverDetails(parcel, parcelDTO);
+
+        Parcel updatedParcel = parcelRepository.save(parcel);
+        return ParcelMapper.mapToDTO(updatedParcel);
     }
 
     @Override
     public ParcelDTO updateStatusByTrackingNumber(String trackingNumber, ParcelDTO parcelDTO) {
-        return null;
+        Parcel parcel = parcelRepository.findByTrackingNumberAndParcelLifecycleStatus(trackingNumber, ParcelLifecycleStatus.ACTIVE)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Active parcel not found with tracking number: " + trackingNumber));
+
+        ParcelUpdateMapper.updateSenderReceiverDetails(parcel, parcelDTO);
+
+        Parcel updatedParcel = parcelRepository.save(parcel);
+        return ParcelMapper.mapToDTO(updatedParcel);
     }
 
     //TODO: implement using query

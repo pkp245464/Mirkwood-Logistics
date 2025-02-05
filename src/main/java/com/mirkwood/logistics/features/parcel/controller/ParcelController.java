@@ -68,6 +68,31 @@ public class ParcelController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdParcel);
     }
 
+    // update
+    @PutMapping("/update/parcelId")
+    public ResponseEntity<ParcelDTO> updateParcelById(@RequestBody ParcelDTO parcelDTO) {
+        Long parcelId = parcelDTO.getParcelId();
+
+        if (Objects.isNull(parcelId)) {
+            throw new CustomMirkwoodLogisticsExceptions("Parcel ID is required to update details.");
+        }
+
+        ParcelDTO updatedParcel = parcelService.updateStatusByParcelId(parcelId, parcelDTO);
+        return ResponseEntity.ok(updatedParcel);
+    }
+
+    @PutMapping("/update/trackingNumber")
+    public ResponseEntity<ParcelDTO> updateParcelByTrackingNumber(@RequestBody ParcelDTO parcelDTO) {
+        String trackingNumber = parcelDTO.getTrackingNumber();
+
+        if (Objects.isNull(trackingNumber) || trackingNumber.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions("Tracking number is required to update details.");
+        }
+
+        ParcelDTO updatedParcel = parcelService.updateStatusByTrackingNumber(trackingNumber, parcelDTO);
+        return ResponseEntity.ok(updatedParcel);
+    }
+
     //delete
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteParcel(@RequestParam(required = false) Long parcelId,
