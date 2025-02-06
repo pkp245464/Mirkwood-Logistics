@@ -15,8 +15,8 @@ public class ParcelTrackingLogDTO {
     @JsonProperty("parcel_log_id")
     private Long parcelLogId;
 
-    @JsonProperty("parcel_id")
-    private Long parcelId;
+    @JsonProperty("tracking_number")
+    private String trackingNumber;
 
     @JsonProperty("city")
     private String city;

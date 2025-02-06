@@ -22,6 +22,9 @@ public class ParcelTrackingLog {
     @JoinColumn(name = "parcel_id", nullable = false)
     private Parcel parcel;
 
+    @Column(name = "tracking_number")
+    private String trackingNumber;
+
     @Column(name = "city", nullable = false)
     private String city;
 
