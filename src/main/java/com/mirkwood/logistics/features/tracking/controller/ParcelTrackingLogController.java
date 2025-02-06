@@ -1,7 +1,5 @@
 package com.mirkwood.logistics.features.tracking.controller;
 
-import com.mirkwood.logistics.core.models.ParcelTrackingLog;
-import com.mirkwood.logistics.features.parcel.dto.ParcelDTO;
 import com.mirkwood.logistics.features.tracking.dto.ParcelTrackingLogDTO;
 import com.mirkwood.logistics.features.tracking.service.ParcelTrackingLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/mirkwood-logistics/parcel-tracking")
