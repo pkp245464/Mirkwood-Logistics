@@ -25,8 +25,8 @@ public class MirkwoodStaffLoginController {
         }
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestParam String username) {
+    @PostMapping("/logout/{username}")
+    public ResponseEntity<String> logout(@PathVariable String username) {
         mirkwoodStaffLoginService.manualLogout(username);
         return ResponseEntity.ok("Logout successful");
     }

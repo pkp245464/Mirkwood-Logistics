@@ -45,8 +45,8 @@ public class MirkwoodStaffLoginServiceImpl implements MirkwoodStaffLoginService{
     @Override
     public void manualLogout(String username) {
         Optional<MirkwoodStaff> existingStaff = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(username);
-        if (existingStaff.isPresent()) {
-            throw new CustomMirkwoodLogisticsExceptions ("Username already exists or is deleted.");
+        if (existingStaff.isEmpty()) {
+            throw new CustomMirkwoodLogisticsExceptions ("The username is deleted, so you cannot log out.");
         }
 
         MirkwoodStaffLoginDetails loginDetails = mirkwoodStaffLoginDetailsRepository.findByStaffUsername(username)
