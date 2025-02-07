@@ -19,8 +19,10 @@ public class SecurityConfig {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/mirkwood-logistics/session/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                        .requestMatchers("/mirkwood-logistics/session/login").permitAll()
+                        .requestMatchers("/mirkwood-logistics/session/logout").permitAll()
+                        .requestMatchers("/mirkwood-logistics/parcel-tracking/status").permitAll()
+                        .requestMatchers("/mirkwood-logistics/parcel/fetch/trackingNumber").permitAll()
                         .anyRequest().denyAll())
                 .sessionManagement(sesssion -> sesssion.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
