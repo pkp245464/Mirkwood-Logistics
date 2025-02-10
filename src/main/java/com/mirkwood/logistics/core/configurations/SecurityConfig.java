@@ -23,7 +23,7 @@ public class SecurityConfig {
                         .requestMatchers("/mirkwood-logistics/session/logout").permitAll()
                         .requestMatchers("/mirkwood-logistics/parcel-tracking/status").permitAll()
                         .requestMatchers("/mirkwood-logistics/parcel/fetch/trackingNumber").permitAll()
-                        .anyRequest().denyAll())
+                        .anyRequest().authenticated())
                 .sessionManagement(sesssion -> sesssion.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return httpSecurity.build();
