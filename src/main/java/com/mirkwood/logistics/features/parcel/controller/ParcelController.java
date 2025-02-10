@@ -20,21 +20,21 @@ public class ParcelController {
     private ParcelService parcelService;
 
     // find
-    @PreAuthorize("hasAuthority('ROLE_STAFF')")
+    @PreAuthorize("hasAuthority('STAFF')")
     @GetMapping("/fetch/count")
     public ResponseEntity<Long> getTotalParcelsCount() {
         long count = parcelService.getTotalParcelsCount();
         return ResponseEntity.ok(count);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_STAFF')")
+    @PreAuthorize("hasAuthority('STAFF')")
     @GetMapping("/fetch/all")
     public ResponseEntity<List<ParcelDTO>> getAllParcels() {
         List<ParcelDTO> parcelDTOs = parcelService.getAllParcels();
         return ResponseEntity.ok(parcelDTOs);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_STAFF')")
+    @PreAuthorize("hasAuthority('STAFF')")
     @GetMapping("/fetch/parcelId/{parcelId}")
     public ResponseEntity<ParcelDTO> getByParcelId(@PathVariable Long parcelId) {
         ParcelDTO parcelDTO = parcelService.getParcelById(parcelId);
@@ -47,7 +47,7 @@ public class ParcelController {
         return ResponseEntity.ok(parcelDTO);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_STAFF')")
+    @PreAuthorize("hasAuthority('STAFF')")
     @GetMapping("/fetch/sender")
     public ResponseEntity<List<ParcelDTO>> getParcelsBySender(@RequestParam String senderName) {
         List<ParcelDTO> parcels = parcelService.getParcelsBySender(senderName);
@@ -69,7 +69,7 @@ public class ParcelController {
     }
 
     // create
-    @PreAuthorize("hasAuthority('ROLE_STAFF')")
+    @PreAuthorize("hasAuthority('STAFF')")
     @PostMapping("/register")
     public ResponseEntity<ParcelDTO> registerNewParcel(@RequestBody ParcelDTO parcelDTO) {
         ParcelDTO createdParcel = parcelService.createNewParcel(parcelDTO);
@@ -77,7 +77,7 @@ public class ParcelController {
     }
 
     // update
-    @PreAuthorize("hasAuthority('ROLE_STAFF')")
+    @PreAuthorize("hasAuthority('STAFF')")
     @PutMapping("/update/parcelId")
     public ResponseEntity<ParcelDTO> updateParcelById(@RequestBody ParcelDTO parcelDTO) {
         Long parcelId = parcelDTO.getParcelId();
@@ -90,7 +90,7 @@ public class ParcelController {
         return ResponseEntity.ok(updatedParcel);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_STAFF')")
+    @PreAuthorize("hasAuthority('STAFF')")
     @PutMapping("/update/trackingNumber")
     public ResponseEntity<ParcelDTO> updateParcelByTrackingNumber(@RequestBody ParcelDTO parcelDTO) {
         String trackingNumber = parcelDTO.getTrackingNumber();
@@ -104,7 +104,7 @@ public class ParcelController {
     }
 
     //delete
-    @PreAuthorize("hasAuthority('ROLE_STAFF')")
+    @PreAuthorize("hasAuthority('STAFF')")
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteParcel(@RequestParam(required = false) Long parcelId,
                                                @RequestParam(required = false) String trackingNumber) {
@@ -120,7 +120,7 @@ public class ParcelController {
     }
 
     // restore
-    @PreAuthorize("hasAuthority('ROLE_STAFF')")
+    @PreAuthorize("hasAuthority('STAFF')")
     @PutMapping("/restore")
     public ResponseEntity<String> restoreParcel(@RequestParam(required = false) Long parcelId,
                                                 @RequestParam(required = false) String trackingNumber) {
