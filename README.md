@@ -13,7 +13,13 @@ Welcome to **Mirkwood Logistics** – a masterfully crafted parcel tracking and 
 ---
 
 ### 📸 **Screenshots**
-
+![Screenshot 2025-02-07 152327](https://github.com/user-attachments/assets/3a64014d-d9ee-4f1a-9cf0-12a7fc9d33ac)
+![Screenshot 2025-02-07 152354](https://github.com/user-attachments/assets/045a7e8d-1b83-49ac-a466-c5ab4f682b8d)
+![Screenshot 2025-02-07 152134](https://github.com/user-attachments/assets/50c3a7c2-6c69-4b07-9b78-6a183edaeb82)
+![Screenshot 2025-02-07 152207](https://github.com/user-attachments/assets/bb74bf31-026c-4d47-9407-fec466de3c1d)
+![Screenshot 2025-02-07 152220](https://github.com/user-attachments/assets/997ec1ba-76d7-4d19-b6aa-011ccd26e497)
+![Screenshot 2025-02-07 152232](https://github.com/user-attachments/assets/72362747-a775-479b-84e8-792acd274b81)
+![Screenshot 2025-02-07 152246](https://github.com/user-attachments/assets/042091df-7dd2-45d4-9f25-15040d3d95b0)
 
 ---
 ## ⚙️ **Installation**
