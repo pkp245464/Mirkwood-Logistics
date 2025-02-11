@@ -19,3 +19,16 @@ To set up Mirkwood Logistics on your own:
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/mirkwood-logistics.git
+
+2. Navigate to the project directory:
+   ```bash
+   cd mirkwood-logistics
+
+3. Build the application using Maven or your preferred method:
+   ```bash
+   mvn clean install
+   
+4. Run the application:
+   ```bash
+   mvn spring-boot:run
+
