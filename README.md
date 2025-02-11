@@ -6,9 +6,20 @@ Welcome to **Mirkwood Logistics** – a masterfully crafted parcel tracking and 
 
 ## 🚚 **Key Features**
 
-- **Parcel Management**: Effortlessly add, update, and manage parcels with the grace of an Elven archer.
-- **Real-time Tracking**: Stay on top of every parcel’s journey, receiving updates as swift as a bowstring release.
-- **Seamless Workflow**: From start to end, enjoy an interface as intuitive as the winding paths of Mirkwood itself.
+   ### 1. **ParcelController**  
+   Manages operations related to parcels, including fetching, registering, updating, deleting, and restoring parcel records.
+
+   ### 2. **MirkwoodStaffLoginController**  
+   Handles staff login, logout, and registration for the logistics system.
+   
+   ### 3. **MirkwoodStaffController**  
+   Manages staff-related operations like fetching, creating, updating, deleting, and restoring staff records.
+   
+   ### 4. **ParcelTrackingLogController**  
+   Handles tracking of parcel statuses, including updating and fetching status logs by tracking number.
+   
+   ### 5. **MirkwoodPersonalController**  
+   Handles operations related to the personal details of staff, including fetching, updating, and deleting staff personal information.
 
 ---
 
