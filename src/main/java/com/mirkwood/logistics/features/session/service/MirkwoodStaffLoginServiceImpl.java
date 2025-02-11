@@ -1,21 +1,33 @@
 package com.mirkwood.logistics.features.session.service;
 
+import com.mirkwood.logistics.core.configurations.MirkwoodStaffUserDetails;
 import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
+import com.mirkwood.logistics.core.jwt.JwtHelper;
 import com.mirkwood.logistics.core.models.MirkwoodStaff;
 import com.mirkwood.logistics.core.models.MirkwoodStaffLoginDetails;
 import com.mirkwood.logistics.features.session.dto.MirkwoodStaffRegistrationDTO;
 import com.mirkwood.logistics.features.session.repository.MirkwoodStaffLoginDetailsRepository;
 import com.mirkwood.logistics.features.staff.repository.MirkwoodStaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
 public class MirkwoodStaffLoginServiceImpl implements MirkwoodStaffLoginService{
+
+    @Autowired
+    private JwtHelper jwtHelper;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -27,7 +39,7 @@ public class MirkwoodStaffLoginServiceImpl implements MirkwoodStaffLoginService{
     private MirkwoodStaffLoginDetailsRepository mirkwoodStaffLoginDetailsRepository;
 
     @Override
-    public boolean manualLogin(String username, String password) {
+    public String manualLogin(String username, String password) {
         MirkwoodStaffLoginDetails loginDetails = mirkwoodStaffLoginDetailsRepository.findByStaffUsername(username)
                 .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("User not found or username is incorrect"));
 
@@ -39,7 +51,13 @@ public class MirkwoodStaffLoginServiceImpl implements MirkwoodStaffLoginService{
         loginDetails.setLastLoginTime(LocalDateTime.now());
 
         mirkwoodStaffLoginDetailsRepository.save(loginDetails);
-        return true;
+
+        MirkwoodStaff staff = mirkwoodStaffRepository.findByStaffUsernameAndIsDeletedFalse(username)
+                .orElseThrow(() -> new CustomMirkwoodLogisticsExceptions("Staff not found for username: " + username));
+
+        MirkwoodStaffUserDetails userDetails = new MirkwoodStaffUserDetails(staff, loginDetails);
+
+        return jwtHelper.generateToken(userDetails);
     }
 
     @Override

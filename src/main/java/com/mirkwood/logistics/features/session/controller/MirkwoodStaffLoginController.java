@@ -1,5 +1,6 @@
 package com.mirkwood.logistics.features.session.controller;
 
+import com.mirkwood.logistics.core.exceptions.CustomMirkwoodLogisticsExceptions;
 import com.mirkwood.logistics.features.session.dto.MirkwoodStaffLoginDTO;
 import com.mirkwood.logistics.features.session.dto.MirkwoodStaffRegistrationDTO;
 import com.mirkwood.logistics.features.session.service.MirkwoodStaffLoginService;
@@ -16,12 +17,12 @@ public class MirkwoodStaffLoginController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody MirkwoodStaffLoginDTO loginDTO) {
-        boolean isLoggedIn = mirkwoodStaffLoginService.manualLogin(loginDTO.getUsername(), loginDTO.getPassword());
-        if (isLoggedIn) {
-            return ResponseEntity.ok("Login successful");
+        try {
+            String jwtToken = mirkwoodStaffLoginService.manualLogin(loginDTO.getUsername(), loginDTO.getPassword());
+            return ResponseEntity.ok(jwtToken);
         }
-        else {
-            return ResponseEntity.status(401).body("Invalid username or password");
+        catch (CustomMirkwoodLogisticsExceptions ex) {
+            return ResponseEntity.status(401).body(ex.getMessage());
         }
     }
 
