@@ -32,3 +32,8 @@ To set up Mirkwood Logistics on your own:
    ```bash
    mvn spring-boot:run
 
+
+🛠️ **Contributing**  
+Mirkwood Logistics is an open-world adventure waiting for your contributions. 🏹 Feel free to fork the repository and submit pull requests for bug fixes, improvements, or new features. We ask that you follow **Gitflow conventions** when branching and merging to keep things in harmony.
+
+May your code be as clean as the Elven forests, and your contributions bring as much elegance to the project as the light through the trees! 🌟
