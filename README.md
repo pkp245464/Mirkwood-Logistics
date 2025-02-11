@@ -12,6 +12,10 @@ Welcome to **Mirkwood Logistics** – a masterfully crafted parcel tracking and 
 
 ---
 
+### 📸 **Screenshots**
+
+
+---
 ## ⚙️ **Installation**
 
 To set up Mirkwood Logistics on your own:
@@ -32,6 +36,7 @@ To set up Mirkwood Logistics on your own:
    ```bash
    mvn spring-boot:run
 
+---
 
 ## 🛠️ **Contributing**  
 Mirkwood Logistics is an open-world adventure waiting for your contributions. 🏹 Feel free to fork the repository and submit pull requests for bug fixes, improvements, or new features. We ask that you follow **Gitflow conventions** when branching and merging to keep things in harmony.
