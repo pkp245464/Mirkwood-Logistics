@@ -46,6 +46,7 @@ public class SecurityConfig {
                         .requestMatchers("/mirkwood-logistics/session/logout").permitAll()
                         .requestMatchers("/mirkwood-logistics/staff/fetch/**").permitAll()
                         .requestMatchers("/mirkwood-logistics/parcel-tracking/status").permitAll()
+                        .requestMatchers("/mirkwood-logistics/staff-personal/signup").permitAll()
                         .requestMatchers("/mirkwood-logistics/parcel/fetch/trackingNumber").permitAll()
 
                         .requestMatchers("/mirkwood-logistics/parcel/register").hasRole("STAFF")

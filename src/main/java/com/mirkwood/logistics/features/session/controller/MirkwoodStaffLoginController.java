@@ -26,6 +26,7 @@ public class MirkwoodStaffLoginController {
         }
     }
 
+    // TODO: please check after logout token should be inactive
     @PostMapping("/logout/{username}")
     public ResponseEntity<String> logout(@PathVariable String username) {
         mirkwoodStaffLoginService.manualLogout(username);
