@@ -21,7 +21,7 @@ services:
     environment:
       POSTGRES_DB: mirkwoodlogisticsdb
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: pkp$9
+      POSTGRES_PASSWORD: "pkp$9"
     ports:
       - "5432:5432"
     volumes:
