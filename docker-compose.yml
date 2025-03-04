@@ -9,7 +9,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mirkwoodlogisticsdb
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: pkp$9
+      SPRING_DATASOURCE_PASSWORD: pkp245464
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       - db
@@ -21,7 +21,7 @@ services:
     environment:
       POSTGRES_DB: mirkwoodlogisticsdb
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "pkp$9"
+      POSTGRES_PASSWORD: "pkp245464"
     ports:
       - "5432:5432"
     volumes:
