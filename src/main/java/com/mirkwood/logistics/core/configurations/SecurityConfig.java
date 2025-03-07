@@ -42,14 +42,15 @@ public class SecurityConfig {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/mirkwood-logistics/swagger-ui.html", "/mirkwood-logistics/v3/api-docs/**", "/mirkwood-logistics/swagger-ui/**", "/mirkwood-logistics/webjars/swagger-ui/**", "/mirkwood-logistics/api-docs/**").permitAll()
                         .requestMatchers("/mirkwood-logistics/session/login").permitAll()
                         .requestMatchers("/mirkwood-logistics/session/logout").permitAll()
                         .requestMatchers("/mirkwood-logistics/staff/fetch/**").permitAll()
                         .requestMatchers("/mirkwood-logistics/staff/signup/**").permitAll()
+                        .requestMatchers("/mirkwood-logistics/session/register").permitAll()
                         .requestMatchers("/mirkwood-logistics/parcel-tracking/status").permitAll()
                         .requestMatchers("/mirkwood-logistics/staff-personal/signup").permitAll()
                         .requestMatchers("/mirkwood-logistics/parcel/fetch/trackingNumber").permitAll()
-
                         .requestMatchers("/mirkwood-logistics/parcel/register").hasRole("STAFF")
 
                         .anyRequest().authenticated())
