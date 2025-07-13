@@ -1,3 +1,6 @@
+# 🍂 Elven Message
+   - The Mirkwood Logistics portal has temporarily returned to the forest, as its magical energies are being replenished. A new and more powerful journey begins soon—stay close, traveler.
+
 # 🌿 Mirkwood Logistics
 
 Welcome to **Mirkwood Logistics** – a masterfully crafted parcel tracking and management system, built with the elegance and precision of Elven craftsmanship. Developed using **Spring Boot**, this system empowers your logistics operations to run seamlessly, tracking parcels from start to finish like a smooth Elven journey through the woods. 🌲
